@@ -8,14 +8,17 @@ import { useStore } from '../state'
 import { formatDateTime } from '../lib/text'
 
 export function LessonPage() {
-  const { lessonId } = useParams()
+  const params = useParams()
+  const lessonId = params.lessonId ?? params.unitId
   const { state, setDifficulty, recordAttempt } = useStore()
   const lesson = lessonId ? getLesson(lessonId) : undefined
   if (!lessonId || !lesson) return <Navigate to="/" replace />
 
   const questions = state.difficulty === 'advanced' ? lesson.exercises.advanced : lesson.exercises.basic
   const status = state.lessonStatus[lesson.lessonId]
-  const subjectPath = `/subject/${lesson.subjectId}`
+  const isVocab = lesson.lessonId.startsWith('vocab-')
+  const subjectPath = isVocab ? '/vocab' : `/subject/${lesson.subjectId}`
+  const unitLabel = isVocab ? '单元' : '节'
 
   function handleSubmit(results: QuestionResult[]) {
     const current = lesson
@@ -30,8 +33,11 @@ export function LessonPage() {
         knowledgePoints: r.question.knowledgePoints,
         promptText: r.question.promptBlocks
           .map((b) => {
-            if (b.type === 'p' || b.type === 'callout') return 'text' in b ? b.text : ''
+            if (b.type === 'p' || b.type === 'callout') return b.text
             if (b.type === 'ul' || b.type === 'ol') return b.items.join(' ')
+            if (b.type === 'passage') return b.text
+            if (b.type === 'vocab') return b.items.map((item) => item.word).join('、')
+            if (b.type === 'formula') return b.tex
             return ''
           })
           .filter(Boolean)
@@ -43,7 +49,7 @@ export function LessonPage() {
     recordAttempt({
       subjectId: current.subjectId,
       lessonId: current.lessonId,
-      lessonTitle: `第${current.number}节 ${current.title}`,
+      lessonTitle: isVocab ? `必会词汇 第${current.number}单元 ${current.title}` : `第${current.number}节 ${current.title}`,
       score: results.filter((r) => r.grade.correct).length,
       total: results.length,
       difficulty: state.difficulty,
@@ -57,14 +63,16 @@ export function LessonPage() {
       <nav className="crumb no-print">
         <Link to="/">首页</Link>
         <span> / </span>
-        <Link to={subjectPath}>{SUBJECT_NAME[lesson.subjectId]}</Link>
+        <Link to={subjectPath}>{isVocab ? '必会词汇' : SUBJECT_NAME[lesson.subjectId]}</Link>
         <span> / </span>
-        <span>第 {lesson.number} 节</span>
+        <span>
+          第 {lesson.number} {unitLabel}
+        </span>
       </nav>
 
       <header className="page-head">
         <p className="eyebrow">
-          {SUBJECT_NAME[lesson.subjectId]} · 第 {lesson.number} 节
+          {isVocab ? '必会词汇' : SUBJECT_NAME[lesson.subjectId]} · 第 {lesson.number} {unitLabel}
         </p>
         <h1>{lesson.title}</h1>
         {status?.practiced ? (

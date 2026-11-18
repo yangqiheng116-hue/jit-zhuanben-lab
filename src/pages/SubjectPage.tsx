@@ -28,6 +28,11 @@ export function SubjectPage() {
         <p className="eyebrow">科目</p>
         <h1>{subject.name}</h1>
         <p className="lede">{subject.summary}</p>
+        {subject.id === 'english' ? (
+          <p>
+            <Link to="/vocab">进入专转本必会词汇（20 个单元，400 词，不计入这 18 节）</Link>
+          </p>
+        ) : null}
       </header>
       <ol className="lesson-list">
         {subject.lessons.map((lesson) => {

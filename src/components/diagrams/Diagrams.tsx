@@ -1,4 +1,5 @@
 import { useId, type ReactNode } from 'react'
+import { MORE_DIAGRAMS } from './MoreDiagrams'
 
 const ink = '#1c1915'
 const navy = '#1a3654'
@@ -321,6 +322,7 @@ const REGISTRY: Record<string, () => ReactNode> = {
   'circuit-loop': () => <CircuitLoopDiagram />,
   'control-open': () => <OpenLoopDiagram />,
   'control-closed': () => <ClosedLoopDiagram />,
+  ...MORE_DIAGRAMS,
 }
 
 export function Diagram({ id, caption }: { id: string; caption?: string }) {

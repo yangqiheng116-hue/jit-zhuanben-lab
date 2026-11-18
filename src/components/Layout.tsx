@@ -3,6 +3,7 @@ import { DISCLAIMER } from '../data/subjects'
 
 const links = [
   { to: '/', label: '首页', end: true },
+  { to: '/vocab', label: '必会词汇', end: false },
   { to: '/wrong-book', label: '错题本', end: false },
   { to: '/weak-points', label: '薄弱点', end: false },
   { to: '/scores', label: '成绩记录', end: false },

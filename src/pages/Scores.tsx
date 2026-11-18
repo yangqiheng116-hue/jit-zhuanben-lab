@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SUBJECT_NAME } from '../data/subjects'
+import { studyPath } from '../lib/paths'
 import { formatDateTime } from '../lib/text'
 import { exportState, importState } from '../storage'
 import { useStore } from '../state'
@@ -81,7 +82,7 @@ export function ScoresPage() {
                   <td>{formatDateTime(r.date)}</td>
                   <td>{SUBJECT_NAME[r.subjectId]}</td>
                   <td>
-                    <Link to={`/lesson/${r.lessonId}`}>{r.lessonTitle}</Link>
+                    <Link to={studyPath(r.lessonId)}>{r.lessonTitle}</Link>
                   </td>
                   <td>
                     {r.score} / {r.total}

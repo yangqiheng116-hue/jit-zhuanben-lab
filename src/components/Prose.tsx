@@ -72,6 +72,46 @@ export function Prose({ blocks }: { blocks: Block[] }) {
                 </div>
               </div>
             )
+          case 'vocab':
+            return (
+              <div key={key} className="vocab-table-wrap">
+                <table className="vocab-table">
+                  <thead>
+                    <tr>
+                      <th>词或词组</th>
+                      <th>词性</th>
+                      <th>释义</th>
+                      <th>例句</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {block.items.map((item) => (
+                      <tr key={item.word}>
+                        <td className="vocab-word">{item.word}</td>
+                        <td>{item.pos}</td>
+                        <td>
+                          {item.meaning}
+                          {item.note ? <span className="vocab-note">{item.note}</span> : null}
+                        </td>
+                        <td>
+                          <span className="vocab-en">{item.example}</span>
+                          {item.exampleZh ? <span className="vocab-zh">{item.exampleZh}</span> : null}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )
+          case 'passage':
+            return (
+              <figure key={key} className="passage">
+                {block.title ? <figcaption>{block.title}</figcaption> : null}
+                {block.text.split(/\n\n+/).map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </figure>
+            )
           default:
             return null
         }

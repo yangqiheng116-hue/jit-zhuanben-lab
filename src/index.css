@@ -915,6 +915,91 @@ select:disabled {
   color: var(--navy);
 }
 
+.vocab-table-wrap {
+  overflow-x: auto;
+  margin: 0.8rem 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.vocab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.vocab-table th,
+.vocab-table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.vocab-table th {
+  background: var(--bg-elevated);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.vocab-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.vocab-word {
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.vocab-note {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--warn);
+  font-size: 0.86rem;
+}
+
+.vocab-en {
+  display: block;
+}
+
+.vocab-zh {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.passage {
+  margin: 0.8rem 0 1rem;
+  padding: 0.9rem 1rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.passage figcaption {
+  font-weight: 700;
+  margin-bottom: 0.45rem;
+  color: var(--navy);
+}
+
+.passage p {
+  margin: 0 0 0.7rem;
+}
+
+.passage p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .vocab-table th:nth-child(2),
+  .vocab-table td:nth-child(2) {
+    display: none;
+  }
+}
+
 .diagram-figure {
   margin: 1rem 0 1.2rem;
   background: var(--paper);

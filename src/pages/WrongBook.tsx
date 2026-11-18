@@ -4,6 +4,7 @@ import { ExerciseSet, type QuestionResult } from '../components/ExerciseSet'
 import { SUBJECT_NAME } from '../data/subjects'
 import { findQuestion, getQuestionLesson } from '../data/lessons'
 import { formatDateTime } from '../lib/text'
+import { studyPath } from '../lib/paths'
 import { useStore } from '../state'
 import { MathText } from '../components/MathText'
 
@@ -111,7 +112,7 @@ export function WrongBookPage() {
                 {item.userAnswer}
               </p>
               <div className="record-actions no-print">
-                <Link to={`/lesson/${item.lessonId}`}>回到该节</Link>
+                <Link to={studyPath(item.lessonId)}>回到该节</Link>
                 {!item.resolved && findQuestion(item.questionId) ? (
                   <button type="button" className="btn-secondary" onClick={() => setRetryId(item.id)}>
                     重新作答

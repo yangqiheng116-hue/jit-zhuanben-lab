@@ -60,6 +60,15 @@ export interface AppState {
   lessonStatus: Record<string, LessonStatus>
 }
 
+export interface VocabRow {
+  word: string
+  pos: string
+  meaning: string
+  example: string
+  exampleZh?: string
+  note?: string
+}
+
 export type Block =
   | { type: 'p'; text: string }
   | { type: 'ul'; items: string[] }
@@ -68,6 +77,8 @@ export type Block =
   | { type: 'diagram'; id: string; caption?: string }
   | { type: 'callout'; tone: 'note' | 'warn' | 'rule'; title?: string; text: string }
   | { type: 'compare'; leftTitle: string; left: string[]; rightTitle: string; right: string[] }
+  | { type: 'vocab'; items: VocabRow[] }
+  | { type: 'passage'; title?: string; text: string }
 
 export interface FieldOption {
   value: string
